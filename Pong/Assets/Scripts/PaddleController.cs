@@ -6,7 +6,7 @@ public class PaddleController : MonoBehaviour {
 
 
     public KeyCode up, down; 
-    private float speed = 333f;
+    private float speed = 3.33f;
 
     private Vector3 size;
    //Get the size to the scale of the GO

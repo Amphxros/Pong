@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     public const int ALTOMUNDO = 6, ANCHOMUNDO = 8;     //CONSTANT (capital letters because the nomenclature)
-    
+    public string menu, game;
+
     private enum Estado { Start, Serve, play, Done };
     private enum Player { Left, Right };
 
@@ -73,7 +74,17 @@ public class GameManager : MonoBehaviour {
             p1score = 0;
             p2score = 0;
         }
-
+        else if (Input.GetKey(KeyCode.Escape)&& SceneManager.GetActiveScene().name==game)
+        
+        {
+            est = Estado.Start;
+            p1score = 0;
+            p2score = 0;
+            SceneManager.LoadScene(menu);
+           
+        }
+        if(Input.GetKey(KeyCode.Return) && SceneManager.GetActiveScene().name == menu)
+            SceneManager.LoadScene(game);
     }
 
     public void AddPointsToP1()
