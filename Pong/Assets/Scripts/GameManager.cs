@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
-
+    [Header("CONSTANTES DEL MUNDO")]
     public const int ALTOMUNDO = 6, ANCHOMUNDO = 8;     //CONSTANT (capital letters because the nomenclature)
     public string menu, game;
 
@@ -59,29 +59,32 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
         //main part of the States Machine
+        if (SceneManager.GetActiveScene().name == game)
+        {
+            if (Input.GetKey(KeyCode.Return) && est == Estado.Start)
+            {
+                est = Estado.Serve;
+            }
 
-        if (Input.GetKey(KeyCode.Return) && est == Estado.Start) {
-            est = Estado.Serve;
-        }
+            else if (Input.GetKey(KeyCode.Return) && est == Estado.Serve)
+            {
+                est = Estado.play;
+            }
+            if (Input.GetKey(KeyCode.Return) && est == Estado.Done) //with this you can replay the game
+            {
+                est = Estado.Start;
+                p1score = 0;
+                p2score = 0;
+            }
+            else if (Input.GetKey(KeyCode.Escape) && SceneManager.GetActiveScene().name == game)
 
-        else if (Input.GetKey(KeyCode.Return) && est == Estado.Serve)
-        {
-            est = Estado.play;
-        }
-        if(Input.GetKey(KeyCode.Return) && est == Estado.Done) //with this you can replay the game
-        {
-            est = Estado.Start;
-            p1score = 0;
-            p2score = 0;
-        }
-        else if (Input.GetKey(KeyCode.Escape)&& SceneManager.GetActiveScene().name==game)
-        
-        {
-            est = Estado.Start;
-            p1score = 0;
-            p2score = 0;
-            SceneManager.LoadScene(menu);
-           
+            {
+                est = Estado.Start;
+                p1score = 0;
+                p2score = 0;
+                SceneManager.LoadScene(menu);
+
+            }
         }
         if(Input.GetKey(KeyCode.Return) && SceneManager.GetActiveScene().name == menu)
             SceneManager.LoadScene(game);
