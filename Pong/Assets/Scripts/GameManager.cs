@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour {
 
     private enum Estado { Start, Serve, play, Done };
     private enum Player { Left, Right };
-
-    private int p1score, p2score;
+    [HideInInspector]
+   public int p1score, p2score;
     private int inicio = 0;
 
     private Estado est;
