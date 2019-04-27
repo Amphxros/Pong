@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
+    //CONSTANT (capital letters because the nomenclature)
     [Header("CONSTANTES DEL MUNDO")]
-    public const int ALTOMUNDO = 6, ANCHOMUNDO = 8;     //CONSTANT (capital letters because the nomenclature)
-    public string menu, game;
-
+    public const int ALTOMUNDO = 6, ANCHOMUNDO = 8;     
+   
     private enum Estado { Start, Serve, play, Done };
     private enum Player { Left, Right };
-    [HideInInspector]
-   public int p1score, p2score;
-    private int inicio = 0;
+ 
+    //inicio para determinar el primer saque P1score y P2score corresponden a las puntuaciones
+    private int inicio = 0, p1score, p2score;
 
     private Estado est;
     private Player ServingPlayer;
-
+   
+    //Clase Random de la libreria System para generar nº aleatorios
     private System.Random rnd = new System.Random();
 
-    //BASIC ESTRUCTURE OF A GAMEMANAGER
+    //Estructura de llamada a singleton
     public static GameManager instance = null;
     private void Awake()
     {
@@ -31,16 +32,17 @@ public class GameManager : MonoBehaviour {
             Destroy(this.gameObject);
     }
 
-    //metodos publicos que devuelven cosas privadas
+    //Fin de awake
+
     void Start()
     {
-        
+        //se decide el jugador que realizara el primer saque
+
         while (inicio == 0)
         {
             inicio = rnd.Next(-1, 2);
         }
-        //decide el jugador
-
+        
         if (inicio == -1)
         {
             ServingPlayer = Player.Left;
@@ -59,8 +61,9 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
         //main part of the States Machine
-        if (SceneManager.GetActiveScene().name == game)
-        {
+        
+            //si se pulsa enter en el estado start --> pasa a Serve, si se vuelve a pulsar --> estado play
+            //despues cuando alguien pierde se vuelve al serve, hasta que uno de los jugadores llegue a 10 puntos, entonces pasaria a done
             if (Input.GetKey(KeyCode.Return) && est == Estado.Start)
             {
                 est = Estado.Serve;
@@ -76,18 +79,16 @@ public class GameManager : MonoBehaviour {
                 p1score = 0;
                 p2score = 0;
             }
-            else if (Input.GetKey(KeyCode.Escape) && SceneManager.GetActiveScene().name == game)
+            else if (Input.GetKey(KeyCode.Escape) && est==Estado.Done)
 
             {
                 est = Estado.Start;
                 p1score = 0;
                 p2score = 0;
-                SceneManager.LoadScene(menu);
+                
 
             }
-        }
-        if(Input.GetKey(KeyCode.Return) && SceneManager.GetActiveScene().name == menu)
-            SceneManager.LoadScene(game);
+        
     }
 
     public void AddPointsToP1()
@@ -104,6 +105,16 @@ public class GameManager : MonoBehaviour {
         else
         {
             est = Estado.Done;
+            if (p1score == 10)
+            {
+                print("enhorabuena P1");
+            }
+            else
+            {
+                print("enhorabuena P2");
+            }
+
+
             p1score = 0;
             p2score = 0;
         }
@@ -131,13 +142,13 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                 print("enhorabuena P2");
+                print("enhorabuena P2");
             }
-            
-            
+            p1score = 0;
+            p2score = 0;
         }
     }
-    //devuelve que el jugador sea Left o !Left(Right) para que en ballmanager se cambie la velocidad
+    //devuelve que el jugador sea Left o !Left(Right) para que en ballmanager se cambie la velocidad a -velocidad
     public bool LeftPlayer()
     {
         return ServingPlayer == Player.Left;
@@ -147,7 +158,6 @@ public class GameManager : MonoBehaviour {
     {
         return est == Estado.play;
     }
-    //Los conjuntos de estados ChangeStateTo... cambian el enum referente
     private void ChangePlayer(ref Player p) //pasa por referencia porque no se cambia en ningun metodo tipo update
     {
         if (p == Player.Left)
