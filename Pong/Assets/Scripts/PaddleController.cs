@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour {
 
-
+    [Header("BOTONES PARA EL CONTROL DE CADA UNA DE LAS PALAS")]
     public KeyCode up, down; 
     private float speed = 3.33f;
 
     private Vector3 size;
-   //Get the size to the scale of the GO
+    //Vector que coge la escala del objeto
     void Start()
     {
         size = transform.localScale;
     }
 
-    //the movement is limited by the const of the GM "ALTOMUNDO"/2 and the component y of the size/2
+    //El movimiento está limitado de ALTOMUNDO/2 a -ALTOMUNDO/2 (3 A -3)
     void Update()
     {
         

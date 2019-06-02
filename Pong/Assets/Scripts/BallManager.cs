@@ -60,7 +60,16 @@ public class BallManager : MonoBehaviour {
     public void ChangeY()
     {
         DeltaY = -DeltaY;
-    
+        Transform t = this.transform;
+
+        if (this.transform.position.y < 0)
+        {
+            transform.position = t.position + new Vector3(0, size.y/2, 0);
+        }
+        else
+        {
+            transform.position = t.position - new Vector3(0, size.y / 2, 0);
+        }
     }
     //Move the ball in her initial position (0,0,0)
     public void Reset()

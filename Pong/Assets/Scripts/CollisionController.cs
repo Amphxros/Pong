@@ -9,19 +9,21 @@ public class CollisionController : MonoBehaviour {
 	
 	void Start ()
     {
-//The only way that I find out to access to the components is by tags or GameObject.Find...
+        //The only way that I find out to access to the components is by tags or GameObject.Find...
         ball = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallManager>();
         p1 = GameObject.FindGameObjectWithTag("Left").GetComponent<PaddleController>();
         p2 = GameObject.FindGameObjectWithTag("Right").GetComponent<PaddleController>();
 	}
 	
+    
 	void Update ()
     {
-
+        //Comprueba la colision del eje y
         if (Vertical(ball.transform))
         {
             ball.ChangeY();
         }
+        //Comprueba las del eje x
         if (Horizontal(ball.transform))
         {
             if (ball.transform.position.x < 0)
@@ -36,6 +38,7 @@ public class CollisionController : MonoBehaviour {
             ball.SetSpeed();
 
         }
+        //Comprueba entre las palas
         if (AABBCollision(p1.transform, ball.transform)|| AABBCollision(p2.transform, ball.transform))
         {
             ball.ChangeX();

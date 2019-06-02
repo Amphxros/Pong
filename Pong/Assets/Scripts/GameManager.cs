@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
-    //CONSTANT (capital letters because the nomenclature)
+    //CONSTANTES
     [Header("CONSTANTES DEL MUNDO")]
     public const int ALTOMUNDO = 6, ANCHOMUNDO = 8;     
    
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        //main part of the States Machine
+        //parte principal de la maquina de estados
         
             //si se pulsa enter en el estado start --> pasa a Serve, si se vuelve a pulsar --> estado play
             //despues cuando alguien pierde se vuelve al serve, hasta que uno de los jugadores llegue a 10 puntos, entonces pasaria a done
@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour {
         
     }
 
+    //Añade puntos al P1
     public void AddPointsToP1()
     {
         p1score++;
@@ -119,6 +120,7 @@ public class GameManager : MonoBehaviour {
             p2score = 0;
         }
     }
+    //Añade puntos al P2
     public void AddPointsToP2()
     {
         p2score++;
@@ -158,7 +160,9 @@ public class GameManager : MonoBehaviour {
     {
         return est == Estado.play;
     }
-    private void ChangePlayer(ref Player p) //pasa por referencia porque no se cambia en ningun metodo tipo update
+
+    //pasa por referencia porque no se cambia en ningun metodo tipo update
+    private void ChangePlayer(ref Player p)
     {
         if (p == Player.Left)
         {
