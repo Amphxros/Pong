@@ -18,12 +18,12 @@ public class CollisionController : MonoBehaviour {
     
 	void Update ()
     {
-        //Comprueba la colision del eje y
+        //Check the Y Axis/ vertical ones
         if (Vertical(ball.transform))
         {
             ball.ChangeY();
         }
-        //Comprueba las del eje x
+        //Check the X axis / horizontal ones
         if (Horizontal(ball.transform))
         {
             if (ball.transform.position.x < 0)
@@ -38,7 +38,7 @@ public class CollisionController : MonoBehaviour {
             ball.SetSpeed();
 
         }
-        //Comprueba entre las palas
+        //Check between paddles and ball
         if (AABBCollision(p1.transform, ball.transform)|| AABBCollision(p2.transform, ball.transform))
         {
             ball.ChangeX();
@@ -46,26 +46,42 @@ public class CollisionController : MonoBehaviour {
         
 
     }
-   
-   //Bools of positions between the limits of the world or the paddles
 
-        //if the cllision is on the left or right
-        public bool Horizontal(Transform t)
+    //Bools of positions between the limits of the world or the paddles
+
+    /// <summary>
+    /// The collision behind the paddles
+    /// </summary>
+    /// <param name="t"> ball transform</param>
+    /// <returns> if the ball is behind the paddle</returns>
+
+    public bool Horizontal(Transform t)
         {
             if (t.position.x - (t.localScale.x / 2) >= GameManager.ANCHOMUNDO / 2 || t.position.x -( t.localScale.x / 2) <= -GameManager.ANCHOMUNDO / 2)
                 return true;
             else
                 return false;
         }
-    
-    // if is up or down
-        public bool Vertical(Transform t)
-        {
-            return (t.position.y - t.localScale.y / 2 >= GameManager.ALTOMUNDO / 2 || t.position.y - t.localScale.y / 2 <= -GameManager.ALTOMUNDO / 2); //me limito a de -AltoMundo a Altomundo-->(-3,3)
-        }
-    
-    //between the paddles
-        public bool AABBCollision(Transform A, Transform Ball)
+
+    /// <summary>
+    /// Check the collision between up and down of the game screen(3 or -3)
+    /// </summary>
+    /// <param name="t"> transform of the ball</param>
+    /// <returns></returns>
+
+    public bool Vertical(Transform t)
+    {
+        return (t.position.y - t.localScale.y / 2 >= GameManager.ALTOMUNDO / 2 || t.position.y - t.localScale.y / 2 <= -GameManager.ALTOMUNDO / 2); 
+    }
+
+    /// <summary>
+    /// Check the collisions between a transform A and a transform ball
+    /// </summary>
+    /// <param name="A"> is the transform of any of the paddles</param>
+    /// <param name="Ball"> transform of the ball</param>
+    /// <returns></returns>
+
+    public bool AABBCollision(Transform A, Transform Ball)
         {
             return ((Ball.position.x + (Ball.localScale.x / 2)) >= (A.position.x - (A.localScale.x / 2)) &&
                   (Ball.position.x - (Ball.localScale.x / 2)) <= (A.position.x + (A.localScale.x / 2)) &&

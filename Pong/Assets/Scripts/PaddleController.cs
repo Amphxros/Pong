@@ -9,13 +9,14 @@ public class PaddleController : MonoBehaviour {
     private float speed = 3.33f;
 
     private Vector3 size;
-    //Vector que coge la escala del objeto
+    //Check the scale of the GameObject
     void Start()
     {
         size = transform.localScale;
     }
-
-    //El movimiento está limitado de ALTOMUNDO/2 a -ALTOMUNDO/2 (3 A -3)
+    /// <summary>
+    /// Move the paddles between ALTOMUNDO/2 && -ALTOMUNDO/2 if there is the input up or down
+    /// </summary>
     void Update()
     {
         

@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour {
     private Estado est;
     private Player ServingPlayer;
    
-    //Clase Random de la libreria System para generar nº aleatorios
+    //Class Random from the System library to generate random ints
     private System.Random rnd = new System.Random();
 
-    //Estructura de llamada a singleton
+    //Estructure of the singleton instance
     public static GameManager instance = null;
     private void Awake()
     {
@@ -32,11 +32,11 @@ public class GameManager : MonoBehaviour {
             Destroy(this.gameObject);
     }
 
-    //Fin de awake
+    //END of awake method
 
     void Start()
     {
-        //se decide el jugador que realizara el primer saque
+        //decides who is the first player to serve
 
         while (inicio == 0)
         {
@@ -60,34 +60,33 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        //parte principal de la maquina de estados
-        
-            //si se pulsa enter en el estado start --> pasa a Serve, si se vuelve a pulsar --> estado play
-            //despues cuando alguien pierde se vuelve al serve, hasta que uno de los jugadores llegue a 10 puntos, entonces pasaria a done
-            if (Input.GetKey(KeyCode.Return) && est == Estado.Start)
-            {
-                est = Estado.Serve;
-            }
 
-            else if (Input.GetKey(KeyCode.Return) && est == Estado.Serve)
-            {
-                est = Estado.play;
-            }
-            if (Input.GetKey(KeyCode.Return) && est == Estado.Done) //with this you can replay the game
-            {
-                est = Estado.Start;
-                p1score = 0;
-                p2score = 0;
-            }
-            else if (Input.GetKey(KeyCode.Escape) && est==Estado.Done)
 
-            {
-                est = Estado.Start;
-                p1score = 0;
-                p2score = 0;
-                
+        //si se pulsa enter en el estado start --> pasa a Serve, si se vuelve a pulsar --> estado play
+        //despues cuando alguien pierde se vuelve al serve, hasta que uno de los jugadores llegue a 10 puntos, entonces pasaria a done
 
-            }
+        if (Input.GetKey(KeyCode.Return) && est == Estado.Start)
+        {
+            est = Estado.Serve;
+        }
+        else if (Input.GetKey(KeyCode.Return) && est == Estado.Serve)
+        {
+            est = Estado.play;
+        }
+
+        if (Input.GetKey(KeyCode.Return) && est == Estado.Done) //with this you can replay the game
+        {
+            est = Estado.Start;
+            p1score = 0;
+            p2score = 0;
+        }
+
+        else if (Input.GetKey(KeyCode.Escape) && est==Estado.Done)
+        {
+            est = Estado.Start;
+            p1score = 0;
+            p2score = 0;
+        }
         
     }
 

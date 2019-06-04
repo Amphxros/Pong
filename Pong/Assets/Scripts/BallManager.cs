@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BallManager : MonoBehaviour {
 
+    [Header("Velocidad minima y maxima de la bola")]
     public float min = 1.5f, max = 3f;
 
     private Vector3 size;
@@ -16,12 +17,11 @@ public class BallManager : MonoBehaviour {
         SetSpeed(); 
 
 	}
-    //Set speed between min & max or -max & max
 
+    //Set speed between min & max or -max & max
     public void SetSpeed()
     {
         DeltaX = Random.Range(min, max);
-
         DeltaY = Random.Range(-max, max);
 
         if (GameManager.instance.LeftPlayer()) //check which player is
@@ -29,8 +29,6 @@ public class BallManager : MonoBehaviour {
             DeltaX = -DeltaX; 
     
         }
-      
-
     }
 
     void FixedUpdate () {
@@ -40,8 +38,8 @@ public class BallManager : MonoBehaviour {
             transform.Translate(new Vector2(DeltaX, DeltaY) * Time.deltaTime);
         }
     }
-
-    //Change X component
+    
+    //Change X component and also move a little bit(size.component/2) to move them correctly (sometimes the ball is stuck in Y)
     public void ChangeX()
     {
         Transform t = this.transform;
@@ -56,7 +54,7 @@ public class BallManager : MonoBehaviour {
         }
     }
 
-    //Change Y component
+    //Change Y component and also move a little bit(size.component/2) to move them correctly(sometimes the ball is stuck)
     public void ChangeY()
     {
         DeltaY = -DeltaY;
@@ -71,6 +69,7 @@ public class BallManager : MonoBehaviour {
             transform.position = t.position - new Vector3(0, size.y / 2, 0);
         }
     }
+
     //Move the ball in her initial position (0,0,0)
     public void Reset()
     {
