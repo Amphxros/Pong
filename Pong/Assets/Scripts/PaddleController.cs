@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour {
 
-    [Header("BOTONES PARA EL CONTROL DE CADA UNA DE LAS PALAS")]
+    [Header("BUTTONS FOR CONTROLLING THE PADDLES")]
     public KeyCode up, down; 
     private float speed = 3.33f;
 

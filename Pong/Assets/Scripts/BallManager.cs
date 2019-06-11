@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallManager : MonoBehaviour {
 
-    [Header("Velocidad minima y maxima de la bola")]
+    [Header("Minimum and maximum speed for the ball")]
     public float min = 1.5f, max = 3f;
 
     private Vector3 size;
